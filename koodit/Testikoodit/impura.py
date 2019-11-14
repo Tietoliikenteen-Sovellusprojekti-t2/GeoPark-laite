@@ -4,10 +4,10 @@ import picamera
 
 def motion_detected():
     # Randomly return True (like a fake motion detection routine)
-    return random.randint(0, 10) == 0
+    return random.randint(0, 3) == 0
 
 camera = picamera.PiCamera()
-stream = picamera.PiCameraCircularIO(camera, seconds=20)
+stream = picamera.PiCameraCircularIO(camera, seconds=10)
 camera.start_recording(stream, format='h264')
 try:
     while True:
@@ -15,7 +15,7 @@ try:
         if motion_detected():
             # Keep recording for 10 seconds and only then write the
             # stream to disk
-            camera.wait_recording(10)
+            camera.wait_recording(5)
             stream.copy_to('motion.h264')
 finally:
     camera.stop_recording()
