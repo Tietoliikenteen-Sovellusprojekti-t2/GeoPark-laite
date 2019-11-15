@@ -1,1 +1,0 @@
-Tähän kansioon lisätään kuvia laitteesta ja sen kehityksestä.
