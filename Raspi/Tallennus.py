@@ -18,15 +18,15 @@ try:
     while True:
         report = gpsd.next() #
         if report['class'] == 'TPV':
-            GPStime =  str(getattr(report,'time',''))
+            #GPStime =  str(getattr(report,'time','')) #Ajan voi lisätä tarvittaessa
             lat = str(getattr(report,'lat',0.0))
             lon = str(getattr(report,'lon',0.0))
 
-            print  GPStime,"\t",
-            print  lat,"\t",
-            print  lon,"\t",
+            #print  GPStime,"\t",
+            #print  lat,"\t",
+            #print  lon,"\t",
 
-            f.write(GPStime + ', ' + lat +', ' + lon + '\n')
+            f.write(lat +', ' + lon + '\n')
             
             break
 except (KeyboardInterrupt, SystemExit): #when you press ctrl+c
