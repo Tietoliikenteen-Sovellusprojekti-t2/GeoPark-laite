@@ -1,4 +1,5 @@
 import picamera
+from subprocess import call
 
 camera = picamera.PiCamera()
 camera.resolution = (640, 480)
