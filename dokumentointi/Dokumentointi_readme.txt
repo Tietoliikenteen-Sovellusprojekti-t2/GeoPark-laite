@@ -1,1 +1,0 @@
-Kaikki dokumentaatio tulee tänne kansioon.
