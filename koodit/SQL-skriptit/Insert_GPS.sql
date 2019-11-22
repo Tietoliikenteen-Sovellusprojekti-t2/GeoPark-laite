@@ -1,5 +1,5 @@
 CREATE PROCEDURE `Insert_GPS` (
-IN Aikaleima TIMESTAMP(6),
+IN Aikaleima LONG,
 IN Lattitude DOUBLE,
 IN Longitude DOUBLE
 )

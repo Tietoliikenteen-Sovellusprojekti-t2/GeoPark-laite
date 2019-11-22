@@ -17,12 +17,12 @@ try:
             lat = str(getattr(report,'lat',0.0))
             lon = str(getattr(report,'lon',0.0))
             aika = time.strftime("%Y%m%d-%H%M%S")
-#            sql = "call Insert_GPS('lat','lon');"
-	    sql = "INSERT INTO GPS(Lattitude,Longitude) VALUES(%s,%s)" % (lat,lon)
+#            sql = "call Insert_GPS('aika','lat','lon')" % (lat,lon)
+			sql = "INSERT INTO GPS(Lattitude,Longitude) VALUES(%s,%s)" % (lat,lon)
             cursor.execute(sql)
-   	    db.commit()
-	    print lat, lon
-            break
+			db.commit()
+			print lat, lon
+        break
 except:
        db.rollback()
 
