@@ -19,7 +19,7 @@ print("vid conv")
 with pysftp.Connection(host=myHostname, username=myUsername, password=myPassword) as sftp:
     print "Connection succesfully stablished ... "
     #testi = sftp.getcwd
-    testi2 = '/home/pi/GeoPark-laite/koodit/Testikoodit'
+    testi2 = '/home/pi/GeoPark-laite/koodit/Testikoodit/'
     testi3 = 'my_video.mp4'
     #print testi
     # Define the file that you want to upload from your local directorty
