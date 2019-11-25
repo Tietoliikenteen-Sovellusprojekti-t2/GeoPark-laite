@@ -6,10 +6,10 @@ myPassword = "antenni2"
 
 class polku:
     def __init__(tieto, polku, nimi):
-    tieto.polku = polku
-    tieto.nimi = nimi
+    	tieto.polku = polku
+    	tieto.nimi = nimi
     
-    def paikallinen(tieto)
+    def paikallinen(tieto):
         localFilePath =  tieto.polku + tieto.nimi
 
 with pysftp.Connection(host=myHostname, username=myUsername, password=myPassword) as sftp:
@@ -24,6 +24,6 @@ with pysftp.Connection(host=myHostname, username=myUsername, password=myPassword
     # Define the remote path where the file will be uploaded
     remoteFilePath = '/var/integraweb-db-backups/TUTORIAL2.txt'
 
-    sftp.put(localFilePath, remoteFilePath)
+    sftp.put(p1.paikallinen(), remoteFilePath)
  
 # connection closed automatically at the end of the with-block
