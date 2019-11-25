@@ -9,10 +9,10 @@ with pysftp.Connection(host=myHostname, username=myUsername, password=myPassword
 
     # Define the file that you want to upload from your local directorty
     # or absolute "C:\Users\sdkca\Desktop\TUTORIAL2.txt"
-    localFilePath = './TUTORIAL2.txt'
+    localFilePath = '/home/pi/pivideo.mp4'
 
     # Define the remote path where the file will be uploaded
-    remoteFilePath = '/var/integraweb-db-backups/TUTORIAL2.txt'
+    remoteFilePath = '/home/ubuntu/pivideo.mp4'
 
     sftp.put(localFilePath, remoteFilePath)
  
