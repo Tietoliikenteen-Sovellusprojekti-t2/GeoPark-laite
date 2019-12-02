@@ -3,6 +3,7 @@ import pysftp
 import MySQLdb
 import os.path
 import time
+import keyboard
 from subprocess import call
 
 myHostname = "172.20.240.52"
@@ -26,11 +27,29 @@ def nimiMuunnin (video_nro, video_koko, video_nimi, video_form, polku_local):
         
 video_nimi = nimiMuunnin(video_nro, video_koko, video_nimi, video_form, polku_local)
 
-camera = picamera.PiCamera()
-camera.resolution = (640, 480)
-camera.start_recording('%s%s.h264' %(polku_local, video_nimi))
-camera.wait_recording(10)
-camera.stop_recording()
+def  kamera ():
+    camera = picamera.PiCamera()
+    stream = picamera.PiCameraCircularIO(camera, seconds=40)
+    camera.start_recording(stream, format='h264')
+    try:
+        while True:
+            camera.wait_recording(1)
+            if keyboard.read_key() == "q":
+                print "painoit NAPPULAAA :DD"
+                # Keep recording for 10 seconds and only then write the
+                # stream to disk
+                camera.wait_recording(5)
+                stream.copy_to('%s%s.h264' %(polku_local, video_nimi), seconds = 10)
+                break
+    finally:
+        camera.stop_recording()
+
+# camera = picamera.PiCamera()
+# camera.resolution = (640, 480)
+# camera.start_recording('%s%s.h264' %(polku_local, video_nimi))
+# camera.wait_recording(10)
+# camera.stop_recording()
+kamera()
 aika = time.strftime("%Y%m%d%H%M%S")
 
 command = "MP4Box -add %s%s.h264 %s%s.mp4" %(polku_local, video_nimi, polku_local, video_nimi)
