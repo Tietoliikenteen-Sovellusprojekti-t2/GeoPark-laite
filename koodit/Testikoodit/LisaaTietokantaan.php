@@ -9,8 +9,6 @@
 		<input type="submit" value="lisaa" name="on">
 	</form>
 	<?php
-	//$semode = shell_exec("python /home/pi/GeoPark-laite/koodit/Testikoodit/TiedonLisaysTietokantaan_v1.py");
-	//echo "galloo";
 	if(isset($_POST['on'])){
 		$latettaa = shell_exec('python /home/pi/GeoPark-laite/koodit/Testikoodit/TiedonLisaysTietokantaan_v1.py');
 		echo "lahetettiin!";
