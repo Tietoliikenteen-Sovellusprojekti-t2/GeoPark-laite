@@ -16,7 +16,9 @@ video_nro = 1
 video_nimi = "my_video%d" %(video_nro)
 video_form = ".mp4"
 video_koko = polku_local + video_nimi + video_form
-lopetusFlag = True
+
+camera = picamera.PiCamera()
+stream = picamera.PiCameraCircularIO(camera, seconds=40)
 
 def nimiMuunnin (video_nro, video_koko, video_nimi, video_form, polku_local):
     while os.path.isfile(video_koko):                                                   
@@ -26,23 +28,21 @@ def nimiMuunnin (video_nro, video_koko, video_nimi, video_form, polku_local):
         print video_nimi
     return video_nimi                                                         
         
-def  kamera (lopetusFlag):
-    camera = picamera.PiCamera()
-    stream = picamera.PiCameraCircularIO(camera, seconds=40)
+def  kamera ():
     camera.start_recording(stream, format='h264')
     try:
         while True:
             camera.wait_recording(1)
-            if keyboard.read_key() == "q":
-                print "painoit NAPPULAAA :DD"
-                # Keep recording for 10 seconds and only then write the
-                # stream to disk
-                camera.wait_recording(5)
-                stream.copy_to('%s%s.h264' %(polku_local, video_nimi), seconds = 10)
-                break
-            elif keyboard.read_key == "k":
-                lopetusFlag = False
-                return lopetusFlag
+            if keyboard.read_key() == "k":
+                exit()
+            else:
+                if keyboard.read_key() == "q":
+                    print "painoit NAPPULAAA :DD"
+                    # Keep recording for 10 seconds and only then write the
+                    # stream to disk
+                    camera.wait_recording(5)
+                    stream.copy_to('%s%s.h264' %(polku_local, video_nimi), seconds = 10)
+                    break
     finally:
         camera.stop_recording()
 
@@ -76,9 +76,9 @@ def sql (polku_server, video_nimi, video_form, aika):
     db.close()
     print "Merkinta lisatty tietokantaan"    
 
-while (lopetusFlag):
+while True:
     video_nimi = nimiMuunnin(video_nro, video_koko, video_nimi, video_form, polku_local)
-    lopetusFlag = kamera(lopetusFlag)
+    kamera()
     aika = time.strftime("%Y%m%d%H%M%S")
     kaantaja()
     ftp(myHostname, myUsername, myPassword)
