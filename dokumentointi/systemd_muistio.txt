@@ -1,0 +1,30 @@
+Tämä tiedosto sisältää systemd tiedostot, joita käytetään Pi:n bootissa.
+
+/etc/systemd/system/ConnectGlobalprotect.service
+[Unit]
+Description=My service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=idle
+ExecStartPre=/bin/sleep 15
+ExecStart=globalprotect connect --portal pa.oamk.fi
+User=pi
+[Install]
+WantedBy=multi-user.target
+
+/etc/systemd/system/mqtt_subscriber.service
+[Unit]
+Description=My mqtt service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=idle
+ExecStartPre=/bin/sleep 30
+ExecStart=/usr/bin/python -u mqtt_subscriber.py
+WorkingDirectory=/home/pi/GeoPark-laite/Raspi
+User=pi
+[Install]
+WantedBy=multi-user.target
