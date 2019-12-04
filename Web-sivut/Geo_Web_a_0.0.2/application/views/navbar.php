@@ -62,10 +62,10 @@ body {
 </div>
 
 <div class="topnav">
-  <a href="http://localhost/Geo_Web_a_0.0.2">Main</a>
-  <a href="http://localhost/Geo_Web_a_0.0.2/index.php/Co_main/map">Track</a>
-  <a href="http://localhost/Geo_Web_a_0.0.2/index.php/Co_main/video">Video</a>
-  <b href="http://localhost/Geo_Web_a_0.0.2/index.php/Co_main/info">Info</b>
+  <a href="http://stulinux52.ipt.oamk.fi/geoweb">Main</a>
+  <a href="http://stulinux52.ipt.oamk.fi/geoweb/index.php/Co_main/map">Track</a>
+  <a href="http://stulinux52.ipt.oamk.fi/geoweb/index.php/Co_main/video">Video</a>
+  <b href="http://stulinux52.ipt.oamk.fi/geoweb/index.php/Co_main/info">Info</b>
 </div>
 
 </body>
