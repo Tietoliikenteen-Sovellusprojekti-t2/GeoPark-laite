@@ -34,6 +34,7 @@ def  kamera ():
         while True:
             camera.wait_recording(1)
             if keyboard.read_key() == "k":
+		camera.stop_recording()
                 exit()
             else:
                 if keyboard.read_key() == "q":

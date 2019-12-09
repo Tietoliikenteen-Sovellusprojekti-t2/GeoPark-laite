@@ -12,11 +12,13 @@ print "yhteys saatu"
 try:
     
     while True:
-        report = gpsd.next() #
-        if report['class'] == 'TPV':
-            lat = str(getattr(report,'lat',0.0))
-            lon = str(getattr(report,'lon',0.0))
-            aika = time.strftime("%Y%m%d%H%M%S")
+        #report = gpsd.next() #
+        #if report['class'] == 'TPV':
+            #lat = str(getattr(report,'lat',0.0))
+            #lon = str(getattr(report,'lon',0.0))
+	    lat = str(0.0)
+	    lon = str(0.0)
+            aika = time.strftime("%Y%m%d%H%M")
 #	    cursor = db.cursor()
 	    sql = "INSERT INTO GPS(Aikaleima,Lattitude,Longitude) VALUES(%s,%s,%s)" % (aika,lat,lon)
             cursor.execute(sql)
