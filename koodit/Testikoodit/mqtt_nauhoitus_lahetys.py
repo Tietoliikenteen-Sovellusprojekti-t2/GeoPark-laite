@@ -22,8 +22,10 @@ video_koko = polku_local + video_nimi + video_form
 camera = picamera.PiCamera()
 stream = picamera.PiCameraCircularIO(camera, seconds=40)
 
-def on_message(client, userdata, msg):
-    print(msg.topic+" "+str(msg.payload))
+def on_connect(client, userdata, flags, rc):
+    print("Connected with result code "+str(rc))
+    client.subscribe("test")
+    client.subscribe("topic")
     def on_connect(client, userdata, flags, rc):
         print("Connected with result code "+str(rc))
         client.subscribe("test")
@@ -46,9 +48,9 @@ def on_message(client, userdata, msg):
 #            camera.stop_recording()
 #                    exit()
                 if msg.payload == "vstop":
-                print "Received VIDEO STOP message!"
-                camera.stop_recording()
-                exit()
+                	print "Received VIDEO STOP message!"
+                	camera.stop_recording()
+                	exit()
                 else:
 #                    if keyboard.read_key() == "q":
                     if msg.payload == "vsave":
@@ -98,3 +100,8 @@ def on_message(client, userdata, msg):
         kaantaja()
         ftp(myHostname, myUsername, myPassword)
         sql(polku_server, video_nimi, video_form, aika)
+client = mqtt.Client()
+client.on_connect = on_connect
+client.on_message = on_message
+client.connect("172.20.240.52")
+client.loop_forever()
