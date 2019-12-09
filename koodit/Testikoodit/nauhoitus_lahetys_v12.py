@@ -18,6 +18,7 @@ video_nimi = "my_video%d" %(video_nro)
 video_form = ".mp4"
 video_koko = polku_local + video_nimi + video_form
 global stop_flag
+stop_flag = 1
 
 camera = picamera.PiCamera()
 stream = picamera.PiCameraCircularIO(camera, seconds=40)
@@ -31,7 +32,7 @@ def on_message(client, userdata, msg):
     print(msg.topic+" "+str(msg.payload))
     if msg.payload == "on":
         stop_flag = 0
-		# print "Received message!"
+	print stop_flag
 		# os.system("python /home/pi/GeoPark-laite/koodit/Testikoodit/TiedonLisaysTietokantaan_v1.py")
 
 
@@ -98,7 +99,6 @@ client.on_connect = on_connect
 client.on_message = on_message
 client.connect("stulinux52.ipt.oamk.fi")
 client.loop_start()
-stop_flag = 1
 while True:
     video_nimi = nimiMuunnin(video_nimi, video_koko, video_nro, video_form)
     kamera()

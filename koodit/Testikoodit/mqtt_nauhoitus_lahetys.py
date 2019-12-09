@@ -4,6 +4,7 @@ import MySQLdb
 import os.path
 import time
 import keyboard
+import paho.mqtt.client as mqtt
 from subprocess import call
 
 myHostname = "172.20.240.52"
