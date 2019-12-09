@@ -21,12 +21,23 @@ camera = picamera.PiCamera()
 stream = picamera.PiCameraCircularIO(camera, seconds=40)
 
 def on_connect(client, userdata, flags, rc):
+<<<<<<< HEAD
 	print("Connected with result code "+str(rc))
 	client.subscribe("test")
 	client.subscribe("topic")
     
 def on_message(client, userdata, msg):
 	print(msg.topic+" "+str(msg.payload))
+=======
+    print("Connected with result code "+str(rc))
+    client.subscribe("test")
+    client.subscribe("topic")
+    def on_connect(client, userdata, flags, rc):
+        print("Connected with result code "+str(rc))
+        client.subscribe("test")
+        client.subscribe("topic")
+
+>>>>>>> 397dacfe32950afe6c94d69afc5b56f584dbb980
     def nimiMuunnin (video_nimi, video_koko, video_nro, video_form):
         while os.path.isfile(video_koko):                                                   
             video_nimi = "my_video%d" %(video_nro)                                
@@ -42,9 +53,15 @@ def on_message(client, userdata, msg):
                 camera.wait_recording(1)
                 #if keyboard.read_key() == "k":
                 if msg.payload == "vstop":
+<<<<<<< HEAD
                     print "Received VIDEO STOP message!"
                     camera.stop_recording()
                     exit()
+=======
+                	print "Received VIDEO STOP message!"
+                	camera.stop_recording()
+                	exit()
+>>>>>>> 397dacfe32950afe6c94d69afc5b56f584dbb980
                 else:
                     #if keyboard.read_key() == "q":
                     if msg.payload == "vsave"
@@ -94,9 +111,16 @@ def on_message(client, userdata, msg):
         kaantaja()
         ftp(myHostname, myUsername, myPassword)
         sql(polku_server, video_nimi, video_form, aika)
+<<<<<<< HEAD
         
+=======
+>>>>>>> 397dacfe32950afe6c94d69afc5b56f584dbb980
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 client.connect("172.20.240.52")
+<<<<<<< HEAD
 client.loop_forever()
+=======
+client.loop_forever()
+>>>>>>> 397dacfe32950afe6c94d69afc5b56f584dbb980
