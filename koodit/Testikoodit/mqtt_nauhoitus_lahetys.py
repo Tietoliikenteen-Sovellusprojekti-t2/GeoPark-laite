@@ -4,8 +4,6 @@ import MySQLdb
 import os.path
 import time
 import keyboard
-import paho.mqtt.client as mqtt
-
 from subprocess import call
 
 myHostname = "172.20.240.52"
@@ -22,13 +20,13 @@ video_koko = polku_local + video_nimi + video_form
 camera = picamera.PiCamera()
 stream = picamera.PiCameraCircularIO(camera, seconds=40)
 
+def on_connect(client, userdata, flags, rc):
+	print("Connected with result code "+str(rc))
+	client.subscribe("test")
+	client.subscribe("topic")
+    
 def on_message(client, userdata, msg):
-    print(msg.topic+" "+str(msg.payload))
-    def on_connect(client, userdata, flags, rc):
-        print("Connected with result code "+str(rc))
-        client.subscribe("test")
-        client.subscribe("topic")
-
+	print(msg.topic+" "+str(msg.payload))
     def nimiMuunnin (video_nimi, video_koko, video_nro, video_form):
         while os.path.isfile(video_koko):                                                   
             video_nimi = "my_video%d" %(video_nro)                                
@@ -42,16 +40,14 @@ def on_message(client, userdata, msg):
         try:
             while True:
                 camera.wait_recording(1)
-#                if keyboard.read_key() == "k":
-#            camera.stop_recording()
-#                    exit()
+                #if keyboard.read_key() == "k":
                 if msg.payload == "vstop":
-                print "Received VIDEO STOP message!"
-                camera.stop_recording()
-                exit()
+                    print "Received VIDEO STOP message!"
+                    camera.stop_recording()
+                    exit()
                 else:
-#                    if keyboard.read_key() == "q":
-                    if msg.payload == "vsave":
+                    #if keyboard.read_key() == "q":
+                    if msg.payload == "vsave"
                         print "painoit NAPPULAAA :DD"
                         # Keep recording for 10 seconds and only then write the
                         # stream to disk
@@ -98,3 +94,9 @@ def on_message(client, userdata, msg):
         kaantaja()
         ftp(myHostname, myUsername, myPassword)
         sql(polku_server, video_nimi, video_form, aika)
+        
+client = mqtt.Client()
+client.on_connect = on_connect
+client.on_message = on_message
+client.connect("172.20.240.52")
+client.loop_forever()
