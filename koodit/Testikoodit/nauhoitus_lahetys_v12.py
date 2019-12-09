@@ -48,6 +48,7 @@ def  kamera ():
     try:
         while True:
             camera.wait_recording(1)
+            print stop_flag
             if stop_flag == 0:
                 exit()
             else:
