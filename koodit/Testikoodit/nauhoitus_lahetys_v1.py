@@ -20,7 +20,7 @@ video_koko = polku_local + video_nimi + video_form
 camera = picamera.PiCamera()
 stream = picamera.PiCameraCircularIO(camera, seconds=40)
 
-def nimiMuunnin (video_nro, video_koko, video_nimi, video_form, polku_local):
+def nimiMuunnin (video_nimi, video_koko, video_nro, video_form):
     while os.path.isfile(video_koko):                                                   
         video_nimi = "my_video%d" %(video_nro)                                
         video_nro += 1                                                        
@@ -77,7 +77,7 @@ def sql (polku_server, video_nimi, video_form, aika):
     print "Merkinta lisatty tietokantaan"    
 
 while True:
-    video_nimi = nimiMuunnin(video_nro, video_koko, video_nimi, video_form, polku_local)
+    video_nimi = nimiMuunnin(video_nimi, video_koko, video_nro, video_form)
     kamera()
     aika = time.strftime("%Y%m%d%H%M%S")
     kaantaja()
