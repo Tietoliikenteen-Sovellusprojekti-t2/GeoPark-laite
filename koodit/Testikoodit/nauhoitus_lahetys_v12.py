@@ -17,6 +17,7 @@ video_nro = 1
 video_nimi = "my_video%d" %(video_nro)
 video_form = ".mp4"
 video_koko = polku_local + video_nimi + video_form
+global stop_flag
 
 camera = picamera.PiCamera()
 stream = picamera.PiCameraCircularIO(camera, seconds=40)
@@ -27,7 +28,6 @@ def on_connect(client, userdata, flags, rc):
 	client.subscribe("topic")
 
 def on_message(client, userdata, msg):
-	global stop_flag
     print(msg.topic+" "+str(msg.payload))
 	if msg.payload == "on":
         stop_flag = 0
