@@ -72,6 +72,7 @@ def  kamera ():
             camera.wait_recording(1)
             if muuttuja2 == 1:
 		camera.stop_recording()
+		client.loop_stop()
                 exit()
             else:
                 if muuttuja1 == 1:
