@@ -12,13 +12,7 @@ def on_message(client, userdata, msg):
 		os.system("python /home/pi/GeoPark-laite/koodit/Testikoodit/TiedonLisaysTietokantaan_v1.py")
 	if msg.payload == "vstart":
 		print "Received VIDEO START message!"
-		os.system("sudo python /home/pi/GeoPark-laite/koodit/Testikoodit/nauhoitus_lahetys_v1.py")
-	if msg.payload == "vstop":
-		keyboard.write('k')
-		print "Received VIDEO STOP message!"
-	if msg.payload == "vsave":
-		print "Received VIDEO SAVE message!"
-		keyboard.write('ctrl+c')
+		os.system("sudo python /home/pi/GeoPark-laite/koodit/Testikoodit/mqtt_nauhoitus_lahetys.py")
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message

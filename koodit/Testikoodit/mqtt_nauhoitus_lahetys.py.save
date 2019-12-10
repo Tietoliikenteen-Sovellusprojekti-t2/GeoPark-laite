@@ -45,11 +45,15 @@ def on_message(client, userdata, msg):
         	print muuttuja1
 		keyboard.press('a')
 		keyboard.release('a')
+	if msg.payload == "vstart":
+		print "Received VIDEO START message!"
 	if msg.payload == "vstop":
 		print "Received VIDEO STOP message!"
 		muuttuja2 = 1
 		keyboard.press('b')
                 keyboard.release('b')
+	if msg.payload == "on":
+		print "Received PARKING message!"
 
 client = mqtt.Client()
 client.on_connect = on_connect
