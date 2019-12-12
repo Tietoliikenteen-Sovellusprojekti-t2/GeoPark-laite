@@ -67,7 +67,7 @@ def nimiMuunnin (kuva_nimi, kuva_koko, kuva_nro, video_form):
         print kuva_nimi
     return kuva_nimi                                                         
         
-def  kamera ():
+def kamera ():
     # report = gpsd.next() 
         # if report['class'] == 'TPV':
             # lat = str(getattr(report,'lat',0.0))
@@ -75,13 +75,15 @@ def  kamera ():
     lat = str(0.0)
     lon = str(0.0)
     camera.start_preview()
-    sleep(2)
-    camera.capture('%s%s.%s' %(polku_local, kuva_nimi, kuva_form)
+    time.sleep(2)
+    camera.capture('%s%s%s' %(polku_local, kuva_nimi, kuva_form))
 
 # def kaantaja ():
     # command = "MP4Box -add %s%s.h264 %s%s.mp4" %(polku_local, video_nimi, polku_local, video_nimi)
     # call([command], shell=True)
     # print("vid conv")
+
+
 
 def ftp (myHostname, myUsername, myPassword):
     with pysftp.Connection(host=myHostname, username=myUsername, password=myPassword) as sftp:      #ftp-blokki
