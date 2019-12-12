@@ -1,12 +1,9 @@
 #!/usr/bin/python
-# import paho.mqtt.client as mqtt
 import picamera
 import pysftp
 import MySQLdb
 import os.path
 import time
-# import keyboard
-# import paho.mqtt.client as mqtt
 from gps import *
 from subprocess import call
 
@@ -49,11 +46,6 @@ def kamera ():
     time.sleep(2)
     camera.capture('%s%s%s' %(polku_local, kuva_nimi, kuva_form))
 
-# def kaantaja ():
-    # command = "MP4Box -add %s%s.h264 %s%s.mp4" %(polku_local, video_nimi, polku_local, video_nimi)
-    # call([command], shell=True)
-    # print("vid conv")
-
 
 def ftp (myHostname, myUsername, myPassword):
     with pysftp.Connection(host=myHostname, username=myUsername, password=myPassword) as sftp:      #ftp-blokki
@@ -86,6 +78,5 @@ def sql (polku_server, kuva_nimi, kuva_form, aika, lat, lon):
 kuva_nimi = nimiMuunnin(kuva_nimi, kuva_koko, kuva_nro, kuva_form)
 kamera()
 aika = time.strftime("%Y%m%d%H%M")
-# kaantaja()
 ftp(myHostname, myUsername, myPassword)
 sql(polku_server, kuva_nimi, kuva_form, aika, lat, lon)
