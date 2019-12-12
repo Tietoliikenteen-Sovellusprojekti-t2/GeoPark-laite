@@ -23,7 +23,8 @@ kuva_nimi = "my_photo%d" %(kuva_nro)
 kuva_form = ".jpg"
 kuva_koko = polku_local + kuva_nimi + kuva_form
 
-
+lat = 0.0
+lon = 0.0
 
 def nimiMuunnin (kuva_nimi, kuva_koko, kuva_nro, video_form):
     while os.path.isfile(kuva_koko):
@@ -31,26 +32,18 @@ def nimiMuunnin (kuva_nimi, kuva_koko, kuva_nro, video_form):
         kuva_nro += 1
         kuva_koko = polku_local + kuva_nimi + kuva_form
         print kuva_nimi
-<<<<<<< HEAD
-    return kuva_nimi                                                         
-        
-def kamera ():
-    # report = gpsd.next() 
-=======
     return kuva_nimi
 
 def kamera ():
     camera = picamera.PiCamera()
     camera.resolution = (1024, 768)
     # report = gpsd.next()
->>>>>>> 0d4f67c16d48ca2a933b309a6ae5211081844540
         # if report['class'] == 'TPV':
             # lat = str(getattr(report,'lat',0.0))
             # lon = str(getattr(report,'lon',0.0))
-    lat = str(0.0)
-    lon = str(0.0)
+    global lat = str(0.0)
+    global lon = str(0.0)
     camera.start_preview()
-<<<<<<< HEAD
     time.sleep(2)
     camera.capture('%s%s%s' %(polku_local, kuva_nimi, kuva_form))
 
@@ -58,10 +51,6 @@ def kamera ():
     # command = "MP4Box -add %s%s.h264 %s%s.mp4" %(polku_local, video_nimi, polku_local, video_nimi)
     # call([command], shell=True)
     # print("vid conv")
-=======
-    camera.capture('%s%s.%s' %(polku_local, kuva_nimi, kuva_form))
->>>>>>> 0d4f67c16d48ca2a933b309a6ae5211081844540
-
 
 
 def ftp (myHostname, myUsername, myPassword):
@@ -79,12 +68,15 @@ def ftp (myHostname, myUsername, myPassword):
 
         sftp.put(localFilePath, remoteFilePath)     # connection closed automatically at the end of the with-block
 
-def sql (polku_server, kuva_nimi, kuva_form, aika):
+def sql (polku_server, kuva_nimi, kuva_form, aika, lat, lon):
     db = MySQLdb.connect("stulinux52.ipt.oamk.fi", "ubuntu", "antenni2", "GeoPark")
     cursor = db.cursor()
-    sql = "insert into Kuvat(Polku, Nimi, Aikaleima) values('%s', '%s', '%s');" % ((polku_server + kuva_nimi + kuva_form), (kuva_nimi + kuva_form), aika)
-    print sql
-    cursor.execute(sql)
+    sql1 = "insert into Kuvat(Polku, Nimi, Aikaleima) values('%s', '%s', '%s');" % ((polku_server + kuva_nimi + kuva_form), (kuva_nimi + kuva_form), aika)
+    sql2 = "insert into GPS (Aikaleima, Lattitude, Longitude) values('%s', '%s', '%s');" % (aika, lat, lon)
+    print sql1
+    print sql2
+    cursor.execute(sql1)
+    cursor.execute(sql2)
     db.commit()
     db.close()
     print "Merkinta lisatty tietokantaan"
@@ -94,4 +86,4 @@ kamera()
 aika = time.strftime("%Y%m%d%H%M%S")
 # kaantaja()
 ftp(myHostname, myUsername, myPassword)
-sql(polku_server, kuva_nimi, kuva_form, aika)
+sql(polku_server, kuva_nimi, kuva_form, aika, lat, lon)
