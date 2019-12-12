@@ -28,7 +28,7 @@ lon = 0.0
 
 def nimiMuunnin (kuva_nimi, kuva_koko, kuva_nro, video_form):
     while os.path.isfile(kuva_koko):
-        video_nimi = "my_photo%d" %(kuva_nro)
+        kuva_nimi = "my_photo%d" %(kuva_nro)
         kuva_nro += 1
         kuva_koko = polku_local + kuva_nimi + kuva_form
         print kuva_nimi
@@ -41,8 +41,10 @@ def kamera ():
         # if report['class'] == 'TPV':
             # lat = str(getattr(report,'lat',0.0))
             # lon = str(getattr(report,'lon',0.0))
-    global lat = str(0.0)
-    global lon = str(0.0)
+    global lat
+    global lon
+    lat = str(0.0)
+    lon = str(0.0)
     camera.start_preview()
     time.sleep(2)
     camera.capture('%s%s%s' %(polku_local, kuva_nimi, kuva_form))
@@ -83,7 +85,7 @@ def sql (polku_server, kuva_nimi, kuva_form, aika, lat, lon):
 
 kuva_nimi = nimiMuunnin(kuva_nimi, kuva_koko, kuva_nro, kuva_form)
 kamera()
-aika = time.strftime("%Y%m%d%H%M%S")
+aika = time.strftime("%Y%m%d%H%M")
 # kaantaja()
 ftp(myHostname, myUsername, myPassword)
 sql(polku_server, kuva_nimi, kuva_form, aika, lat, lon)
