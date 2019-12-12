@@ -65,12 +65,15 @@ def ftp (myHostname, myUsername, myPassword):
 def sql (polku_server, kuva_nimi, kuva_form, aika, lat, lon):
     db = MySQLdb.connect("stulinux52.ipt.oamk.fi", "ubuntu", "antenni2", "GeoPark")
     cursor = db.cursor()
-    sql1 = "insert into Kuvat(Polku, Nimi, Aikaleima) values('%s', '%s', '%s');" % ((polku_server + kuva_nimi + kuva_form), (kuva_nimi + kuva_form), aika)
-    sql2 = "insert into GPS (Aikaleima, Lattitude, Longitude) values('%s', '%s', '%s');" % (aika, lat, lon)
+    sql1 = "insert into GPS (Aikaleima, Lattitude, Longitude) values('%s', '%s', '%s');" % (aika, lat, lon)
+    sql2 = "insert into Kuvat(Polku, Nimi, Aikaleima) values('%s', '%s', '%s');" % ((polku_server + kuva_nimi + kuva_form), (kuva_nimi + kuva_form), aika)
+    sql3 = "update Kuvat set Kuvat_idGPS = (select idGPS from GPS order by idGPS desc limit 1) where Aikaleima = "%s";" % (aika)
     print sql1
     print sql2
+    print slq3
     cursor.execute(sql1)
     cursor.execute(sql2)
+    cursor.execute(sql3)
     db.commit()
     db.close()
     print "Merkinta lisatty tietokantaan"
